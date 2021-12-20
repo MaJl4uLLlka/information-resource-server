@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,7 +29,7 @@ public class CommentRestControllerV1 {
     }
 
     @PostMapping
-    public ResponseEntity<Comment> addComment(@RequestBody Comment newComment) {
+    public ResponseEntity<Comment> addComment(@Valid @RequestBody Comment newComment) {
         return new ResponseEntity<>(commentService.add(newComment), HttpStatus.CREATED);
     }
 

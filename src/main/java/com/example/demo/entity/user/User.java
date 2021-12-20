@@ -4,6 +4,7 @@ import com.example.demo.entity.Comment;
 import com.example.demo.entity.Event;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -11,7 +12,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull(message = "Введите логин")
     private String login;
+    @NotNull(message = "Введите пароль")
     private String password;
     @Enumerated(value = EnumType.STRING)
     private Role role;

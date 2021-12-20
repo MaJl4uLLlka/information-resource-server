@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +39,7 @@ public class AuthenticationRestControllerV1 {
     }
 
     @PostMapping("/reg")
-    public ResponseEntity<UserDTO> registration(@RequestBody User newUser) throws UserAlreadyExistException {
+    public ResponseEntity<UserDTO> registration(@Valid @RequestBody User newUser) throws UserAlreadyExistException {
         return new ResponseEntity<>(userService.add(newUser), HttpStatus.CREATED);
     }
 

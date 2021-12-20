@@ -4,6 +4,8 @@ import com.example.demo.entity.user.User;
 import com.example.demo.entity.Comment;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -11,8 +13,11 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull(message = "Выберите фото")
     private Byte[] image;
+    @NotBlank(message = "Введите заголовок")
     private String title;
+    @NotBlank(message = "Введите описание")
     private String description;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
