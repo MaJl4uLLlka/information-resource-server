@@ -1,6 +1,6 @@
 package com.example.demo.security;
 
-import com.example.demo.entity.UserEntity;
+import com.example.demo.entity.user.User;
 import com.example.demo.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        UserEntity user = userRepository.findByLogin(login).orElseThrow(() ->
+        User user = userRepository.findByLogin(login).orElseThrow(() ->
                 new UsernameNotFoundException("User doesn't exists"));
         return SecurityUser.fromUser(user);
     }

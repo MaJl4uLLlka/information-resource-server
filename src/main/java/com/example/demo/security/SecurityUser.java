@@ -1,7 +1,7 @@
 package com.example.demo.security;
 
-import com.example.demo.entity.UserEntity;
-import com.example.demo.model.Status;
+import com.example.demo.entity.user.User;
+import com.example.demo.entity.user.Status;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -58,7 +58,7 @@ public class SecurityUser implements UserDetails {
         return isActive;
     }
 
-    public static UserDetails fromUser(UserEntity user) {
+    public static UserDetails fromUser(User user) {
         return new org.springframework.security.core.userdetails.User(
                 user.getLogin(), user.getPassword(),
                 user.getStatus().equals(Status.ACTIVE),

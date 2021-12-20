@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.entity.user;
 
 public enum Permission {
     DEVELOPERS_READ("developers:read"),

@@ -1,5 +1,4 @@
-package com.example.demo.rest;
-
+package com.example.demo.dto;
 
 public class AuthenticationRequestDTO {
     private String login;

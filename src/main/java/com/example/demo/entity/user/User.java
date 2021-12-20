@@ -1,13 +1,13 @@
-package com.example.demo.entity;
+package com.example.demo.entity.user;
 
-import com.example.demo.model.Role;
-import com.example.demo.model.Status;
+import com.example.demo.entity.Comment;
+import com.example.demo.entity.Event;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class UserEntity {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,8 +18,11 @@ public class UserEntity {
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<TodoEntity> todos;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment> comments;
+
+    @ManyToMany(mappedBy = "users")
+    private List<Event> events;
 
     //region Getter and Setter
     public Long getId() {
@@ -60,14 +63,6 @@ public class UserEntity {
 
     public void setStatus(Status status) {
         this.status = status;
-    }
-
-    public List<TodoEntity> getTodos() {
-        return todos;
-    }
-
-    public void setTodos(List<TodoEntity> todos) {
-        this.todos = todos;
     }
     //endregion
 }
