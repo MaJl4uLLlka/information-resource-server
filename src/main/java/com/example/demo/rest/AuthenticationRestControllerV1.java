@@ -46,13 +46,13 @@ public class AuthenticationRestControllerV1 {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO request) {
-        String login = request.getLogin();
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getLogin(), request.getPassword()));
-        User user = userRepo.findByLogin(request.getLogin()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
-        String token = jwtTokenProvider.createToken(request.getLogin(), user.getRole().name());
+        String username = request.getUsername();
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+        User user = userRepo.findByUsername(request.getUsername()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
+        String token = jwtTokenProvider.createToken(request.getUsername(), user.getRole().name());
         Map<Object, Object> response = new HashMap<>();
         response.put("id", user.getId());
-        response.put("login", user.getLogin());
+        response.put("username", user.getUsername());
         response.put("role", user.getRole().name());
         response.put("token", token);
 

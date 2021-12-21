@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface UserRepo extends CrudRepository<User, Long> {
     List<User> findAll();
-    Optional<User> findByLogin(String login);
+    Optional<User> findByUsername(String username);
 }

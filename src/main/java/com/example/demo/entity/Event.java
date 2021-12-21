@@ -14,7 +14,7 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull(message = "Выберите фото")
-    private Byte[] image;
+    private String image;
     @NotBlank(message = "Введите заголовок")
     private String title;
     @NotBlank(message = "Введите описание")
@@ -39,11 +39,11 @@ public class Event {
         this.id = id;
     }
 
-    public Byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

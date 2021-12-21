@@ -34,7 +34,7 @@ public class UserService {
     }
 
     public UserDTO add(User user) throws UserAlreadyExistException {
-        if (userRepo.findByLogin(user.getLogin()).isPresent()) {
+        if (userRepo.findByUsername(user.getUsername()).isPresent()) {
             throw new UserAlreadyExistException("Пользователь с таким логином уже существует");
         }
         return Mapper.map(userRepo.save(user), UserDTO.class);

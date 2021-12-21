@@ -2,7 +2,7 @@ package com.example.demo.dto;
 
 public class UserDTO {
     private Long id;
-    private String login;
+    private String username;
 
     //region Getter and Setter
     public Long getId() {
@@ -13,12 +13,12 @@ public class UserDTO {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
     //endregion
 }
