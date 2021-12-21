@@ -22,6 +22,7 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthenticationRestControllerV1 {
@@ -50,7 +51,9 @@ public class AuthenticationRestControllerV1 {
         User user = userRepo.findByLogin(request.getLogin()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
         String token = jwtTokenProvider.createToken(request.getLogin(), user.getRole().name());
         Map<Object, Object> response = new HashMap<>();
-        response.put("login", request.getLogin());
+        response.put("id", user.getId());
+        response.put("login", user.getLogin());
+        response.put("role", user.getRole().name());
         response.put("token", token);
 
         return ResponseEntity.ok(response);
