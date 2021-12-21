@@ -34,6 +34,11 @@ public class EventRestControllerV1 {
         return new ResponseEntity<>(eventService.add(newEvent), HttpStatus.CREATED);
     }
 
+    @PutMapping(value = {"{id}"})
+    public ResponseEntity<Event> updateEvent(@PathVariable Long id, @Valid @RequestBody Event updateEvent) throws ResourceNotFoundException {
+        return new ResponseEntity<>(eventService.update(id, updateEvent), HttpStatus.OK);
+    }
+
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
         eventService.delete(id);

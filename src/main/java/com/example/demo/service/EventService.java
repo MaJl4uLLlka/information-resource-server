@@ -23,7 +23,7 @@ public class EventService {
         Optional<Event> event = eventRepo.findById(id);
 
         if (event.isEmpty()) {
-            throw new ResourceNotFoundException("Событие не было найдено");
+            throw new ResourceNotFoundException("Мероприятие не было найдено");
         } else {
             return event.get();
         }
@@ -31,6 +31,19 @@ public class EventService {
 
     public Event add(Event newEvent) {
         return eventRepo.save(newEvent);
+    }
+
+    public Event update(Long id, Event updateEvent) throws ResourceNotFoundException {
+        Optional<Event> event = eventRepo.findById(id);
+
+        if (event.isEmpty()) {
+            throw new ResourceNotFoundException("Мероприятие не было найдено");
+        } else {
+            event.get().setTitle(updateEvent.getTitle());
+            event.get().setImage(updateEvent.getImage());
+            event.get().setDescription(updateEvent.getDescription());
+            return eventRepo.save(event.get());
+        }
     }
 
     public void delete(Long id) {
