@@ -1,8 +1,14 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.event.CreateEventDTO;
+import com.example.demo.dto.event.EventDTO;
+import com.example.demo.dto.user.UserDTO;
 import com.example.demo.entity.Event;
+import com.example.demo.entity.user.User;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.EventRepo;
+import com.example.demo.repository.UserRepo;
+import com.example.demo.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,25 +21,34 @@ public class EventService {
     @Autowired
     private EventRepo eventRepo;
 
-    public List<Event> getAll() {
-        return eventRepo.findAll();
+    @Autowired
+    private UserRepo userRepo;
+
+    public List<EventDTO> getAll() {
+        List<Event> events = eventRepo.findAll();
+        return Mapper.mapAll(events, EventDTO.class);
     }
 
-    public Event getOne(Long id) throws ResourceNotFoundException {
+    public EventDTO getOne(Long id) throws ResourceNotFoundException {
         Optional<Event> event = eventRepo.findById(id);
 
         if (event.isEmpty()) {
             throw new ResourceNotFoundException("Мероприятие не было найдено");
         } else {
-            return event.get();
+            return Mapper.map(event.get(), EventDTO.class);
         }
     }
 
-    public Event add(Event newEvent) {
-        return eventRepo.save(newEvent);
+    public EventDTO add(CreateEventDTO newParamEvent) {
+        Event event = new Event();
+        event.setImage(newParamEvent.getImage());
+        event.setTitle(newParamEvent.getTitle());
+        event.setDescription(newParamEvent.getDescription());
+
+        return Mapper.map(eventRepo.save(event), EventDTO.class);
     }
 
-    public Event update(Long id, Event updateEvent) throws ResourceNotFoundException {
+    public EventDTO update(Long id, CreateEventDTO updateEvent) throws ResourceNotFoundException {
         Optional<Event> event = eventRepo.findById(id);
 
         if (event.isEmpty()) {
@@ -42,11 +57,28 @@ public class EventService {
             event.get().setTitle(updateEvent.getTitle());
             event.get().setImage(updateEvent.getImage());
             event.get().setDescription(updateEvent.getDescription());
-            return eventRepo.save(event.get());
+
+            return Mapper.map(eventRepo.save(event.get()), EventDTO.class);
         }
     }
 
     public void delete(Long id) {
         eventRepo.deleteById(id);
+    }
+
+    public void sub(Long eventId, Long userId) {
+        Event event = eventRepo.findById(eventId).get();
+        User user = userRepo.findById(userId).get();
+
+        event.getUsers().add(user);
+        eventRepo.save(event);
+    }
+
+    public void unsub(Long eventId, Long userId) {
+        Event event = eventRepo.findById(eventId).get();
+        User user = userRepo.findById(userId).get();
+
+        event.getUsers().remove(user);
+        eventRepo.save(event);
     }
 }

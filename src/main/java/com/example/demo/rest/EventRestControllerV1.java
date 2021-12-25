@@ -1,5 +1,7 @@
 package com.example.demo.rest;
 
+import com.example.demo.dto.event.CreateEventDTO;
+import com.example.demo.dto.event.EventDTO;
 import com.example.demo.entity.Event;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.service.EventService;
@@ -9,7 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -20,28 +24,46 @@ public class EventRestControllerV1 {
     private EventService eventService;
 
     @GetMapping
-    public ResponseEntity<List<Event>> getAllEvents() {
+    public ResponseEntity<List<EventDTO>> getAllEvents() {
         return new ResponseEntity<>(eventService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping(value = {"{id}"})
-    public ResponseEntity<Event> getOneEvent(@PathVariable Long id) throws ResourceNotFoundException {
-        return new ResponseEntity<>(eventService.getOne(id), HttpStatus.OK);
+    @GetMapping("{eventId}")
+    public ResponseEntity<EventDTO> getOneEvent(@PathVariable Long eventId) throws ResourceNotFoundException {
+        return new ResponseEntity<>(eventService.getOne(eventId), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Event> addEvent(@Valid @RequestBody Event newEvent) {
+    public ResponseEntity<EventDTO> addEvent(@Valid @RequestBody CreateEventDTO newEvent) {
         return new ResponseEntity<>(eventService.add(newEvent), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = {"{id}"})
-    public ResponseEntity<Event> updateEvent(@PathVariable Long id, @Valid @RequestBody Event updateEvent) throws ResourceNotFoundException {
-        return new ResponseEntity<>(eventService.update(id, updateEvent), HttpStatus.OK);
+    @PostMapping("sub")
+    public ResponseEntity<Void> subEvent(@RequestBody HashMap<String, Long> ids) {
+        Long eventId = ids.get("eventId");
+        Long userId = ids.get("userId");
+
+        eventService.sub(eventId, userId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
-        eventService.delete(id);
+    @PostMapping("unsub")
+    public ResponseEntity<Void> unsubEvent(@RequestBody HashMap<String, Long> ids) {
+        Long eventId = ids.get("eventId");
+        Long userId = ids.get("userId");
+
+        eventService.unsub(eventId, userId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("{eventId}")
+    public ResponseEntity<EventDTO> updateEvent(@PathVariable Long eventId, @Valid @RequestBody CreateEventDTO updateEvent) throws ResourceNotFoundException {
+        return new ResponseEntity<>(eventService.update(eventId, updateEvent), HttpStatus.OK);
+    }
+
+    @DeleteMapping("{eventId}")
+    public ResponseEntity<Void> deleteEvent(@PathVariable Long eventId) {
+        eventService.delete(eventId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

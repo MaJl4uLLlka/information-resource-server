@@ -1,7 +1,8 @@
 package com.example.demo.rest;
 
 import com.example.demo.dto.AuthenticationRequestDTO;
-import com.example.demo.dto.UserDTO;
+import com.example.demo.dto.user.CreateUserDTO;
+import com.example.demo.dto.user.UserDTO;
 import com.example.demo.entity.user.User;
 import com.example.demo.exception.UserAlreadyExistException;
 import com.example.demo.repository.UserRepo;
@@ -11,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +40,7 @@ public class AuthenticationRestControllerV1 {
     }
 
     @PostMapping("/reg")
-    public ResponseEntity<UserDTO> registration(@Valid @RequestBody User newUser) throws UserAlreadyExistException {
+    public ResponseEntity<UserDTO> registration(@Valid @RequestBody CreateUserDTO newUser) throws UserAlreadyExistException {
         return new ResponseEntity<>(userService.add(newUser), HttpStatus.CREATED);
     }
 
