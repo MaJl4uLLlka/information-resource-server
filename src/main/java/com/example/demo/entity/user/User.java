@@ -4,17 +4,16 @@ import com.example.demo.entity.Comment;
 import com.example.demo.entity.Event;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull(message = "Введите логин")
     private String username;
-    @NotNull(message = "Введите пароль")
     private String password;
     @Enumerated(value = EnumType.STRING)
     private Role role = Role.USER;
@@ -25,9 +24,10 @@ public class User {
     private List<Comment> comments;
 
     @ManyToMany(mappedBy = "users")
-    private List<Event> events;
+    private Set<Event> events = new HashSet<>();
 
     //region Getter and Setter
+
     public Long getId() {
         return id;
     }
@@ -67,5 +67,22 @@ public class User {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Set<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(Set<Event> events) {
+        this.events = events;
+    }
+
     //endregion
 }
