@@ -11,6 +11,7 @@ import java.util.List;
 public class UserDTO {
     private Long id;
     private String username;
+    private String email;
     private Role role;
     private Status status;
 
@@ -35,6 +36,14 @@ public class UserDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Role getRole() {

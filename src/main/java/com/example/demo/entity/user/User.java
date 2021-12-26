@@ -15,10 +15,11 @@ public class User {
     private Long id;
     private String username;
     private String password;
+    private String email;
     @Enumerated(value = EnumType.STRING)
     private Role role = Role.USER;
     @Enumerated(value = EnumType.STRING)
-    private Status status = Status.ACTIVE;
+    private Status status = Status.INACTIVE;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comments;
@@ -50,6 +51,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Role getRole() {

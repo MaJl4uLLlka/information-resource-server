@@ -55,6 +55,7 @@ public class UserService {
         User newUser = new User();
         newUser.setUsername(newParamUser.getUsername());
         newUser.setPassword(newParamUser.getPassword());
+        newUser.setEmail(newParamUser.getEmail());
 
         return Mapper.map(userRepo.save(newUser), UserDTO.class);
     }

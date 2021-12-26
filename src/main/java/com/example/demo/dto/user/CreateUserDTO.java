@@ -1,5 +1,6 @@
 package com.example.demo.dto.user;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 public class CreateUserDTO {
@@ -7,8 +8,12 @@ public class CreateUserDTO {
     private String username;
     @NotNull(message = "Введите пароль")
     private String password;
+    @NotNull(message = "Введите почту")
+    @Email(message = "Введите корректную почту")
+    private String email;
 
     //region Getter and Setter
+
     public String getUsername() {
         return username;
     }
@@ -24,5 +29,14 @@ public class CreateUserDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     //endregion
 }
