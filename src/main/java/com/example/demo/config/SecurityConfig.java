@@ -20,7 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String AUTH_ENDPOINT = "/api/v1/auth/*";
+    private static final String AUTH_ENDPOINT = "/api/v1/auth/**";
 
     @Autowired
     private JwtConfigurer jwtConfigurer;

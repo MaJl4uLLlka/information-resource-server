@@ -4,6 +4,7 @@ import com.example.demo.dto.comment.CommentDTO;
 import com.example.demo.dto.event.EventDTO;
 import com.example.demo.dto.user.CreateUserDTO;
 import com.example.demo.entity.Event;
+import com.example.demo.entity.user.Status;
 import com.example.demo.entity.user.User;
 import com.example.demo.exception.UserAlreadyExistException;
 import com.example.demo.exception.ResourceNotFoundException;
@@ -62,5 +63,16 @@ public class UserService {
 
     public void delete(Long id) {
         userRepo.deleteById(id);
+    }
+
+    public void activate(Long id) throws ResourceNotFoundException {
+        Optional<User> user = userRepo.findById(id);
+
+        if (user.isEmpty()) {
+            throw new ResourceNotFoundException("Пользователь не был найден");
+        } else {
+            user.get().setStatus(Status.ACTIVE);
+            userRepo.save(user.get());
+        }
     }
 }
