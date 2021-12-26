@@ -1,8 +1,8 @@
 package com.example.demo.rest;
 
+import com.example.demo.aop.LogAnnotation;
 import com.example.demo.dto.event.CreateEventDTO;
 import com.example.demo.dto.event.EventDTO;
-import com.example.demo.entity.Event;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -33,6 +32,7 @@ public class EventRestControllerV1 {
         return new ResponseEntity<>(eventService.getOne(eventId), HttpStatus.OK);
     }
 
+    @LogAnnotation
     @PostMapping
     public ResponseEntity<EventDTO> addEvent(@Valid @RequestBody CreateEventDTO newEvent) {
         return new ResponseEntity<>(eventService.add(newEvent), HttpStatus.CREATED);
@@ -56,11 +56,13 @@ public class EventRestControllerV1 {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @LogAnnotation
     @PutMapping("{eventId}")
     public ResponseEntity<EventDTO> updateEvent(@PathVariable Long eventId, @Valid @RequestBody CreateEventDTO updateEvent) throws ResourceNotFoundException {
         return new ResponseEntity<>(eventService.update(eventId, updateEvent), HttpStatus.OK);
     }
 
+    @LogAnnotation
     @DeleteMapping("{eventId}")
     public ResponseEntity<Void> deleteEvent(@PathVariable Long eventId) {
         eventService.delete(eventId);
