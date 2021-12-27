@@ -2,7 +2,6 @@ package com.example.demo.dto.comment;
 
 public class CommentDTO {
     private Long id;
-    private String image;
     private String username;
     private String comment;
 
@@ -17,14 +16,6 @@ public class CommentDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getUsername() {

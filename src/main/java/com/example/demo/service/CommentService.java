@@ -82,7 +82,6 @@ public class CommentService {
         User user = userRepo.findById(newCommentParam.getUserId()).get();
 
         Comment comment = new Comment();
-        comment.setImage(newCommentParam.getImage());
         comment.setComment(newCommentParam.getComment());
         comment.setEvent(event);
         comment.setUser(user);

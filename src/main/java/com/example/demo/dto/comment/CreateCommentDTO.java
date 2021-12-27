@@ -1,28 +1,16 @@
 package com.example.demo.dto.comment;
 
-import com.example.demo.validator.ImageFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class CreateCommentDTO {
-    @ImageFile
-    @NotNull(message = "Выберите фото")
-    private String image;
     @NotBlank(message = "Введите комментарий")
     private String comment;
     @NotNull(message = "Введите id пользователя")
     private Long userId;
 
     //region Getter and Setter
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 
     public String getComment() {
         return comment;
