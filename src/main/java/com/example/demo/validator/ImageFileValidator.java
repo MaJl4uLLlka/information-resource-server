@@ -12,10 +12,6 @@ public class ImageFileValidator implements ConstraintValidator<ImageFile, String
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        if(s.toLowerCase().endsWith(".png")){
-            return true;
-        }else{
-            return false;
-        }
+        return s.toLowerCase().endsWith(".jpg");
     }
 }
