@@ -1,9 +1,12 @@
 package com.example.demo.dto.comment;
 
+import com.example.demo.validator.ImageFile;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class CreateCommentDTO {
+    @ImageFile
     @NotNull(message = "Выберите фото")
     private String image;
     @NotBlank(message = "Введите комментарий")

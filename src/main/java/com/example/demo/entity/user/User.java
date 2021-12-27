@@ -29,6 +29,16 @@ public class User {
 
     //region Getter and Setter
 
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
+    public User() {
+
+    }
+
     public Long getId() {
         return id;
     }

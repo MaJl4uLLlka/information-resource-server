@@ -2,12 +2,14 @@ package com.example.demo.dto.event;
 
 import com.example.demo.dto.comment.CommentDTO;
 import com.example.demo.dto.user.UserDTO;
+import com.example.demo.validator.ImageFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class CreateEventDTO {
+    @ImageFile
     @NotNull(message = "Выберите фото")
     private String image;
     @NotBlank(message = "Введите заголовок")
@@ -16,6 +18,13 @@ public class CreateEventDTO {
     private String description;
 
     //region Getter and Setter
+
+
+    public CreateEventDTO(String image, String title, String description) {
+        this.image = image;
+        this.title = title;
+        this.description = description;
+    }
 
     public String getImage() {
         return image;

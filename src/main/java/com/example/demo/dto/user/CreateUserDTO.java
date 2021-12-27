@@ -12,6 +12,12 @@ public class CreateUserDTO {
     @Email(message = "Введите корректную почту")
     private String email;
 
+    public CreateUserDTO(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
     //region Getter and Setter
 
     public String getUsername() {

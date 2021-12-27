@@ -43,7 +43,7 @@ public class ControllerAdvisor {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected ResponseEntity<List<String>> handleMethodArgumentNotValid (MethodArgumentNotValidException e){
+    protected ResponseEntity<Response> handleMethodArgumentNotValid (MethodArgumentNotValidException e){
         Map<String, String> errors = new HashMap<>();
         e.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
@@ -58,7 +58,9 @@ public class ControllerAdvisor {
             errorsArray.add(key + ": " + value);
         }
 
-        return new ResponseEntity<>(errorsArray, HttpStatus.BAD_REQUEST);
+        Response response = new Response( String.join(System.lineSeparator(), errorsArray));
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
