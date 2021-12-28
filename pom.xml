@@ -11,8 +11,8 @@
 	<groupId>com.example</groupId>
 	<artifactId>demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>information-resource-server</name>
+	<description>spring (3 course 1 semester)</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -70,7 +70,7 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 			<version>2.6.1</version>
 		</dependency>
-		event
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
