@@ -1,5 +1,5 @@
 # information-resource-server
-course project (3 course 1 semester) - server
+spring project (3 course 1 semester) - server
 
 ## Prerequisites
 
