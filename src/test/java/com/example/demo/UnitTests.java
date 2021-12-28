@@ -32,7 +32,7 @@ public class UnitTests {
 
     @Test
     public void addEvent() {
-        CreateEventDTO CreateEventDTO = new CreateEventDTO("test.png", "Test", "test");
+        CreateEventDTO CreateEventDTO = new CreateEventDTO("test.jpg", "Test", "test");
 
         EventDTO eventDTO = eventService.add(CreateEventDTO);
         Assert.assertNotNull(eventDTO);

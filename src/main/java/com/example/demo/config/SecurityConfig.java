@@ -21,6 +21,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String AUTH_ENDPOINT = "/api/v1/auth/**";
+    private static final String USERS_ENDPOINT = "/api/v1/users/**";
+    private static final String EVENTS_ENDPOINT = "/api/v1/events/";
 
     @Autowired
     private JwtConfigurer jwtConfigurer;
@@ -34,6 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(AUTH_ENDPOINT).permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .antMatchers(HttpMethod.GET, USERS_ENDPOINT).hasAuthority(Permission.DEVELOPERS_READ.getPermission())
+                .antMatchers(USERS_ENDPOINT).hasAuthority(Permission.DEVELOPERS_WRITE.getPermission())
+                .antMatchers(HttpMethod.GET, EVENTS_ENDPOINT, EVENTS_ENDPOINT + "*").hasAuthority(Permission.DEVELOPERS_READ.getPermission())
+                .antMatchers(EVENTS_ENDPOINT).hasAuthority(Permission.DEVELOPERS_WRITE.getPermission())
                 .and()
                 .apply(jwtConfigurer);
     }

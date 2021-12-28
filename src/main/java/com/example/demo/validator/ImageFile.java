@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ImageFile {
-    String message() default "Невалидный файл - выберите .png";
+    String message() default "Невалидный файл - выберите .jpg";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

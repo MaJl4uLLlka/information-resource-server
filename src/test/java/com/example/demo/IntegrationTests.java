@@ -44,7 +44,7 @@ public class IntegrationTests {
 
     @Test
     public void createEvent() throws Exception {
-        CreateEventDTO createEventDTO = new CreateEventDTO("test.png", "Test", "test");
+        CreateEventDTO createEventDTO = new CreateEventDTO("test.jpg", "Test", "test");
 
         this.mvc.perform(postJson("/api/v1/events", createEventDTO))
                 .andDo(print())

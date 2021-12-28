@@ -5,6 +5,13 @@ import com.example.demo.dto.event.CreateEventDTO;
 import com.example.demo.dto.event.EventDTO;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.service.EventService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
+@Tag(name="Мероприятия", description = "Контроллер работающий с мероприятиями")
 @RestController
 @RequestMapping("/api/v1/events")
 public class EventRestControllerV1 {
@@ -22,6 +30,17 @@ public class EventRestControllerV1 {
     @Autowired
     private EventService eventService;
 
+    @Operation(summary = "Gets all Events", tags = "user")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Found the Events",
+                    content = {
+                            @Content(
+                                    mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = EventDTO.class)))
+                    })
+    })
     @GetMapping
     public ResponseEntity<List<EventDTO>> getAllEvents() {
         return new ResponseEntity<>(eventService.getAll(), HttpStatus.OK);

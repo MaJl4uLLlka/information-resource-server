@@ -10,6 +10,7 @@ import com.example.demo.repository.UserRepo;
 import com.example.demo.security.jwt.JwtTokenProvider;
 import com.example.demo.service.MailService;
 import com.example.demo.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -43,6 +44,7 @@ public class AuthenticationRestControllerV1 {
         this.jwtTokenProvider = jwtTokenProvider;
         this.mailService = mailService;
     }
+
 
     @PostMapping("/reg")
     public ResponseEntity<UserDTO> registration(@Valid @RequestBody CreateUserDTO newUser) throws UserAlreadyExistException {
